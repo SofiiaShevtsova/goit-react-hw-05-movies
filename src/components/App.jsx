@@ -1,31 +1,22 @@
-import Statistics from './Statistics/Statistics';
-import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
-import Section from './Section/Section';
-import { useState, useMemo } from 'react';
+import { Link, Outlet, Route, Routes, Navigate } from 'react-router-dom';
+
+import Home from 'page/Home/Home';
+import Movies from 'page/Movies/Movies';
+import MoviesInfo from 'page/MoviesInfo/MoviesInfo';
+
+const Loyout = () => {
+  return (
+    <>
+      <nav>
+        <Link to="/"> Home </Link>
+        <Link to="/movies"> Movies </Link>
+      </nav>
+      <Outlet />
+    </>
+  );
+};
 
 export const App = props => {
-  const feedbackState = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-
-  const [feedback, setFeedback] = useState(feedbackState);
-
-  const getFeedback = event => {
-    const elem = event.target.textContent.toLowerCase();
-    setFeedback(prev => ({ ...prev, [elem]: prev[elem] + 1 }));
-  };
-
-  const countTotalFeedback = useMemo(() => {
-    const { good, neutral, bad } = feedback;
-    return good + neutral + bad;
-  }, [feedback]);
-
-  const countPositiveFeedbackPercentage = () => {
-    return ((feedback.good / countTotalFeedback) * 100).toFixed();
-  };
-
   return (
     <div
       style={{
@@ -40,21 +31,14 @@ export const App = props => {
         backgroundColor: 'rgba(152, 25, 25, 0.3)',
       }}
     >
-      <Section title={'Please leave feedback'}>
-        <FeedbackOptions
-          options={Object.keys(feedback)}
-          onLeaveFeedback={getFeedback}
-        />
-      </Section>
-      <Section title={'Statistics'}>
-        <Statistics
-          good={feedback.good}
-          neutral={feedback.neutral}
-          bad={feedback.bad}
-          total={countTotalFeedback}
-          positivePercentage={countPositiveFeedbackPercentage()}
-        />
-      </Section>
+      <Routes>
+        <Route path="/" element={<Loyout />}>
+          <Route index element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path=":movieId" element={<MoviesInfo />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
     </div>
   );
 };
