@@ -1,15 +1,53 @@
 import { Link, Outlet, Route, Routes, Navigate } from 'react-router-dom';
+import { css } from '@emotion/css';
 
 import Home from 'page/Home/Home';
 import Movies from 'page/Movies/Movies';
-import MoviesInfo from 'page/MoviesInfo/MoviesInfo';
+import MoviesInfo from 'components/MoviesInfo/MoviesInfo';
+import Cast from './Cast/Cast';
+import Reviews from './Reviews/Reviews';
+
+const LinkStyle = `padding: 10px;
+width: 15%;
+text-decoration: none;
+font-size: 20px;
+font-weight: 700;
+border: 2px solid brown;
+border-radius: 10px;
+color: brown;
+&:hover{
+background-color: rgb(150, 50, 50);
+color: rgb(255, 255, 255)`;
 
 const Loyout = () => {
   return (
     <>
-      <nav>
-        <Link to="/"> Home </Link>
-        <Link to="/movies"> Movies </Link>
+      <nav
+        className={css`
+          display: flex;
+          justify-content: center;
+          padding: 20px 50px;
+          gap: 100px;
+        `}
+      >
+        <Link
+          to="/"
+          className={css`
+            ${LinkStyle}
+          `}
+        >
+          {' '}
+          Home{' '}
+        </Link>
+        <Link
+          to="/movies"
+          className={css`
+            ${LinkStyle}
+          `}
+        >
+          {' '}
+          Movies{' '}
+        </Link>
       </nav>
       <Outlet />
     </>
@@ -23,19 +61,22 @@ export const App = props => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        gap: '50px',
+        gap: '30px',
         margin: '0 auto',
-        width: '500px',
+        width: '100%',
         padding: '20px',
         textAlign: 'center',
-        backgroundColor: 'rgba(152, 25, 25, 0.3)',
+        backgroundColor: 'rgba(52, 25, 5, 0.3)',
       }}
     >
       <Routes>
         <Route path="/" element={<Loyout />}>
           <Route index element={<Home />} />
           <Route path="movies" element={<Movies />} />
-          <Route path=":movieId" element={<MoviesInfo />} />
+          <Route path=":movieId" element={<MoviesInfo />}>
+            <Route path=":cast " element={<Cast />} />
+            <Route path=":reviews " element={<Reviews />} />
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>

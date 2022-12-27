@@ -1,27 +1,41 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import {getPopularFilms} from 'service/request'
+import { useEffect, useState } from 'react';
+import Movies from 'page/Movies/Movies';
+import { getPopularFilms } from 'service/request';
+import { css } from '@emotion/css';
 
 const Home = () => {
-    const [popularFilms, setPopularFilms] = useState(null)
+  const [popularFilms, setPopularFilms] = useState(null);
 
-    useEffect(() => {
-        (async () => {
-            const popularListFilms = (await getPopularFilms())
-            setPopularFilms(popularListFilms);
-        })() 
-    }, [])
+  useEffect(() => {
+    (async () => {
+      const popularListFilms = await getPopularFilms();
+      setPopularFilms(popularListFilms);
+    })();
+  }, []);
 
-    return (
-        <>
-            {popularFilms && (<ul>
-                {popularFilms.map(elem => {
-                    return (<li key={elem.id}><Link to={`${elem.id}`}>{elem.title||elem.name}</Link></li>)
-                })}
-            </ul>)}
-            
-        </>
-    )
-}
+  return (
+      <>
+          <h2 className={css`
+  font-size: 24px;
+  color: rgb(211, 66, 8);
+`}>Trending today</h2>
+      {popularFilms && (
+        <ul className={css`display: flex;
+        justify-content: center;
+        align-items: stretch;
+          flex-wrap: wrap;
+  gap: 10px;
+    list-style: none;
 
-export default Home
+`}>
+          {popularFilms.map(elem => {
+            return (<Movies elem={elem}/>
+            );
+          })}
+        </ul>
+      )}
+    </>
+  );
+};
+
+export default Home;
