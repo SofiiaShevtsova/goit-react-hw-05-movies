@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Movies from 'page/Movies/Movies';
+import MoviesForHome from 'components/MoviesForHome/MoviesForHome';
 import { getPopularFilms } from 'service/request';
 import { css } from '@emotion/css';
 
@@ -29,7 +29,7 @@ const Home = () => {
 
 `}>
           {popularFilms.map(elem => {
-            return (<Movies elem={elem}/>
+            return (<MoviesForHome elem={elem} key={ elem.id} />
             );
           })}
         </ul>

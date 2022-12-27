@@ -2,10 +2,10 @@ import { Link, Outlet, Route, Routes, Navigate } from 'react-router-dom';
 import { css } from '@emotion/css';
 
 import Home from 'page/Home/Home';
-import Movies from 'page/Movies/Movies';
-import MoviesInfo from 'components/MoviesInfo/MoviesInfo';
+import MoviesInfo from 'page/MoviesInfo/MoviesInfo';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
+import Movies from 'page/Movies/Movies';
 
 const LinkStyle = `padding: 10px;
 width: 15%;
@@ -17,7 +17,7 @@ border-radius: 10px;
 color: brown;
 &:hover{
 background-color: rgb(150, 50, 50);
-color: rgb(255, 255, 255)`;
+color: rgb(255, 255, 255)}`;
 
 const Loyout = () => {
   return (
@@ -36,8 +36,7 @@ const Loyout = () => {
             ${LinkStyle}
           `}
         >
-          {' '}
-          Home{' '}
+          Home
         </Link>
         <Link
           to="/movies"
@@ -45,8 +44,7 @@ const Loyout = () => {
             ${LinkStyle}
           `}
         >
-          {' '}
-          Movies{' '}
+          Movies
         </Link>
       </nav>
       <Outlet />
@@ -59,9 +57,10 @@ export const App = props => {
     <div
       style={{
         display: 'flex',
+        minHeight: '100vh',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        gap: '30px',
+        gap: '40px',
         margin: '0 auto',
         width: '100%',
         padding: '20px',
@@ -72,11 +71,11 @@ export const App = props => {
       <Routes>
         <Route path="/" element={<Loyout />}>
           <Route index element={<Home />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path=":movieId" element={<MoviesInfo />}>
-            <Route path=":cast " element={<Cast />} />
-            <Route path=":reviews " element={<Reviews />} />
+          <Route path="/movies/:movieId" element={<MoviesInfo />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
           </Route>
+          <Route path="/movies" element={<Movies />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
