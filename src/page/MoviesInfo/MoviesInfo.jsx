@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getFilmById } from 'service/request';
-import { Link, useParams, Outlet } from 'react-router-dom';
+import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import { css } from '@emotion/css';
 
 const getGenresFilm = genresName => {
@@ -12,6 +12,7 @@ const getGenresFilm = genresName => {
 const MoviesInfo = () => {
   const { movieId } = useParams();
   const [filmById, setFilmById] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -22,6 +23,7 @@ const MoviesInfo = () => {
 
   return (
     <>
+      <Link to={location.state.from}>Go back</Link>
       <div
         className={css`
           display: flex;
@@ -35,13 +37,17 @@ const MoviesInfo = () => {
             <img
               src={`https://image.tmdb.org/t/p/w500/${filmById.poster_path}`}
               alt={filmById.title || filmById.name}
-              className={css`  display: block;
+              className={css`
+                display: block;
                 width: 45%;
-`}
+              `}
             />
-            <div className={css`  display: block;
+            <div
+              className={css`
+                display: block;
                 width: 45%;
-`}>
+              `}
+            >
               <p>{filmById.title || filmById.name} | </p>
               <span>
                 {parseInt(filmById.release_date || filmById.first_air_date)}
@@ -55,7 +61,7 @@ const MoviesInfo = () => {
       </div>
       <Link to="cast">Cast</Link>
       <Link to="reviews">Reviews</Link>
-       <Outlet />
+      <Outlet />
     </>
   );
 };

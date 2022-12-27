@@ -14,23 +14,28 @@ const Home = () => {
   }, []);
 
   return (
-      <>
-          <h2 className={css`
-  font-size: 24px;
-  color: rgb(211, 66, 8);
-`}>Trending today</h2>
+    <>
+      <h2
+        className={css`
+          font-size: 24px;
+          color: rgb(211, 66, 8);
+        `}
+      >
+        Trending today
+      </h2>
       {popularFilms && (
-        <ul className={css`display: flex;
-        justify-content: center;
-        align-items: stretch;
-          flex-wrap: wrap;
-  gap: 10px;
-    list-style: none;
-
-`}>
+        <ul
+          className={css`
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+          `}
+        >
           {popularFilms.map(elem => {
-            return (<MoviesForHome elem={elem} key={ elem.id} />
-            );
+            return <MoviesForHome elem={elem} key={elem.id} />;
           })}
         </ul>
       )}

@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { css } from '@emotion/css';
 
 const MoviesForHome = ({ elem }) => {
+  const location = useLocation();
+
   return (
     <>
       <li
@@ -12,6 +14,7 @@ const MoviesForHome = ({ elem }) => {
       >
         <Link
           to={`/movies/${elem.id}`}
+          state={{ from: location }}
           className={css`
             color: inherit;
             text-decoration: none;
