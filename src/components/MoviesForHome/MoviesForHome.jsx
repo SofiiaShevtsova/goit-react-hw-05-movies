@@ -16,7 +16,7 @@ const MoviesForHome = ({ elem }) => {
           to={`/movies/${elem.id}`}
           state={{ from: location }}
           className={css`
-            color: inherit;
+            color: brown;
             text-decoration: none;
           `}
         >
@@ -29,7 +29,14 @@ const MoviesForHome = ({ elem }) => {
               margin: 0 auto;
             `}
           />
-          <p>{elem.title || elem.name}</p>
+          <p
+            className={css`
+              font-size: 18px;
+              margin-top: 10px;
+            `}
+          >
+            {elem.title || elem.name}
+          </p>
         </Link>
       </li>
     </>

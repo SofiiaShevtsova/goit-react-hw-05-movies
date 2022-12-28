@@ -1,11 +1,13 @@
 import { Link, Outlet, Route, Routes, Navigate } from 'react-router-dom';
 import { css } from '@emotion/css';
+import { lazy, Suspense } from 'react';
 
-import Home from 'page/Home/Home';
-import MoviesInfo from 'page/MoviesInfo/MoviesInfo';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-import Movies from 'page/Movies/Movies';
+
+const HomeLazy = lazy(() => import('page/Home/Home'));
+const MoviesInfoLazy = lazy(() => import('page/MoviesInfo/MoviesInfo'));
+const MoviesLazy = lazy(() => import('page/Movies/Movies'));
 
 const LinkStyle = `padding: 10px;
 width: 15%;
@@ -47,7 +49,9 @@ const Loyout = () => {
           Movies
         </Link>
       </nav>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
@@ -70,12 +74,12 @@ export const App = props => {
     >
       <Routes>
         <Route path="/" element={<Loyout />}>
-          <Route index element={<Home />} />
-          <Route path="/movies/:movieId" element={<MoviesInfo />}>
+          <Route index element={<HomeLazy />} />
+          <Route path="/movies/:movieId" element={<MoviesInfoLazy />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies" element={<MoviesLazy />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>

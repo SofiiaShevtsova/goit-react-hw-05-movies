@@ -23,7 +23,20 @@ const MoviesInfo = () => {
 
   return (
     <>
-      <Link to={location.state.from}>Go back</Link>
+      <Link
+        to={location.state.from}
+        className={css`
+          padding: 15px;
+          width: 10%;
+          background-color: brown;
+          font-size: 24px;
+          color: bisque;
+          border-radius: 10px;
+          border-color: brown;
+        `}
+      >
+        Go back
+      </Link>
       <div
         className={css`
           display: flex;
@@ -44,23 +57,73 @@ const MoviesInfo = () => {
             />
             <div
               className={css`
-                display: block;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
                 width: 45%;
+                padding: 20px;
+                color: brown;
+                font-size: 28px;
+                font-weight: 600;
               `}
             >
-              <p>{filmById.title || filmById.name} | </p>
+              <p>{filmById.title || filmById.name}</p>
               <span>
                 {parseInt(filmById.release_date || filmById.first_air_date)}
               </span>
-              <p> Rating: {filmById.vote_average.toFixed(1)}</p>
-              <p> Overview: {filmById.overview}</p>
-              <p> Genres: {getGenresFilm(filmById.genres)}</p>
+              <p>Rating: {filmById.vote_average.toFixed(1)}</p>
+              <p
+                className={css`
+                  text-align: start;
+                `}
+              >
+                Overview: {filmById.overview}
+              </p>
+              <p>Genres: {getGenresFilm(filmById.genres)}</p>
             </div>
           </>
         )}
       </div>
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
+      <div
+        className={css`
+          display: flex;
+          gap: 30px;
+          justify-content: start;
+        `}
+      >
+        <Link
+          to="cast"
+          state={{ from: { ...location.state.from } }}
+          className={css`
+            padding: 15px;
+            width: 10%;
+            background-color: brown;
+            font-size: 24px;
+            color: bisque;
+            border-radius: 10px;
+            border-color: brown;
+          `}
+        >
+          Cast
+        </Link>
+        <Link
+          to="reviews"
+          state={{ from: { ...location.state.from } }}
+          className={css`
+            padding: 15px;
+            width: 10%;
+            background-color: brown;
+            font-size: 24px;
+            color: bisque;
+            border-radius: 10px;
+            border-color: brown;
+          `}
+        >
+          Reviews
+        </Link>
+      </div>
+
       <Outlet />
     </>
   );

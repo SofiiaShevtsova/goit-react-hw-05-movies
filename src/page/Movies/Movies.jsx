@@ -28,9 +28,41 @@ const Movies = () => {
   return (
     <>
       <div>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Movie search" />
-          <button type="submit">Search</button>
+        <form
+          onSubmit={handleSubmit}
+          className={css`
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+          `}
+        >
+          <input
+            type="text"
+            placeholder="Movie search"
+            className={css`
+              padding: 15px;
+              width: 30%;
+              background-color: bisque;
+              font-size: 24px;
+              color: brown;
+              border-radius: 10px;
+              border-color: brown;
+            `}
+          />
+          <button
+            type="submit"
+            className={css`
+              padding: 15px;
+              width: 10%;
+              background-color: brown;
+              font-size: 24px;
+              color: bisque;
+              border-radius: 10px;
+              border-color: brown;
+            `}
+          >
+            Search
+          </button>
         </form>
       </div>
       {listForMovies && (
