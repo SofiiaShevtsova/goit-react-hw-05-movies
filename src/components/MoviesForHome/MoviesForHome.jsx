@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { css } from '@emotion/css';
+import PropTypes from 'prop-types';
 
 const MoviesForHome = ({ elem }) => {
   const location = useLocation();
@@ -41,6 +42,15 @@ const MoviesForHome = ({ elem }) => {
       </li>
     </>
   );
+};
+
+MoviesForHome.propTypes = {
+  elem: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
 };
 
 export default MoviesForHome;
