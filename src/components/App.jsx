@@ -75,11 +75,11 @@ export const App = props => {
       <Routes>
         <Route path="/" element={<Loyout />}>
           <Route index element={<HomeLazy />} />
-          <Route path="movies/:movieId" element={<MoviesInfoLazy />}>
+          <Route path="/movies/:movieId" element={<MoviesInfoLazy />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="movies" element={<MoviesLazy />} />
+          <Route path="/movies" element={<MoviesLazy />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
